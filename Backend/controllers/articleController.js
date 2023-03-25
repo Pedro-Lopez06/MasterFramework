@@ -64,7 +64,15 @@ var controller = {
     },
     getArticles: (req, res) =>{
 
-        Article.find({}).sort('-_id').then(articles =>{ //sort muestra los articulos recientes primero 
+        var query = Article.find({});
+
+        var last = req.params.last;
+
+        if (last || last != undefined) {
+            query.limit(5);
+        }
+
+        query.sort('-_id').then(articles =>{ //sort muestra los articulos recientes primero 
 
             return res.status(200).send({
                 status: 'success',
