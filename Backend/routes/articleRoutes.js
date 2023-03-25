@@ -5,8 +5,11 @@ var ArticleController = require('../controllers/articleController');
 
 var router = express.Router();
 
+// rutas de prueba
 router.post('/datos-curso', ArticleController.datosCurso);
 router.get('/test-controlador', ArticleController.test);
 
+// rutas para articulos
+router.post('/save', ArticleController.save);
 
 module.exports = router;
