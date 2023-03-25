@@ -1,6 +1,7 @@
 'use strict'
 
 var validator = require('validator');
+const article = require('../models/article');
 var Article = require('../models/article');
 
 var controller = {
@@ -60,6 +61,35 @@ var controller = {
             });
         }
         
+    },
+    getArticles: (req, res) =>{
+
+        Article.find({}).sort('-_id').then(articles =>{ //sort muestra los articulos recientes primero 
+
+            return res.status(200).send({
+                status: 'success',
+                articles
+            });
+
+        }).catch(err =>{
+
+            if (err) {
+                return res.status(500).send({
+                    status: 'error',
+                    message: 'Error al devolver los articulos'
+                });
+            }
+
+            if (!articles) {
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'No hay articulos para mostrar'
+                });
+            }
+
+        });
+
+       
     }
 
 } //end controller
