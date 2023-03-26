@@ -70,7 +70,7 @@ var controller = {
 
         if (last || last != undefined) {
             query.limit(5);
-        }
+        } 
 
         query.sort('-_id').then(articles =>{ //sort muestra los articulos recientes primero 
 
@@ -98,6 +98,29 @@ var controller = {
         });
 
        
+    },
+
+    getArticle:(req, res) => {
+        var articleId = req.params.id;
+        
+        Article.findById(articleId) .then(article =>{
+            return res.status(200).send({
+                status: 'success',
+                article
+            });
+
+        }).catch(err => {
+           
+        if (err) {
+
+            return res.status(404).send({
+                status: 'error',
+                message: 'No existe el articulo'
+            });
+            
+        }
+        
+        })
     }
 
 } //end controller
